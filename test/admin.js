@@ -1,6 +1,8 @@
 var test = require('ava')
 var bytes = require('bytes')
+var path = require('path')
 var createTestServer = require('./lib/server.js')
+var { makeDatFromFolder } = require('./lib/dat.js')
 
 var app
 var sessionToken, auth
@@ -364,6 +366,43 @@ test('send support email', async t => {
   t.truthy(lastMail)
   t.is(lastMail.data.subject, 'The subject line')
   t.truthy(lastMail.data.text.includes('The message'))
+})
+
+test('remove an archive', async t => {
+  var testDat, testDatKey
+
+  // create a new archive
+  makeDatFromFolder(path.join(__dirname, '/scaffold/testdat1'), async (err, d, dkey) => {
+    t.ifError(err)
+    testDat = d
+    testDatKey = dkey
+    t.end()
+
+    // upload the archive
+    var json = {key: testDatKey}
+    var res = await app.req.post({
+      uri: '/v1/archives/add',
+      json: {key: testDatKey},
+      auth
+    })
+
+    t.is(res.statusCode, 200, '200 added dat')
+
+    // remove the archive
+    var res = await app.req.post({
+      uri: '/v1/admin/archives/:key/remove',
+      json: {
+        key: testDatKey
+      },
+      auth
+    })
+
+    t.is(res.statusCode, 200, '200 removed dat')
+
+    // check that the archive was removed
+    var res = await app.req({uri: `/v1/archives/${testDatKey}`, qs: {view: 'status'}, auth})
+    t.is(res.statusCode, 404, '404 not found')
+  })
 })
 
 test.cb('stop test server', t => {

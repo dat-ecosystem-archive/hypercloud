@@ -38,6 +38,7 @@ POST /v1/admin/users/:id - update user settings
 POST /v1/admin/users/:id/suspend - suspend a user account
 POST /v1/admin/users/:id/unsuspend - unsuspend a user account
 GET /v1/admin/archives/:key - get archive information
+POST /v1/admin/archives/:key/remove - remove an archive
 POST /v1/admin/users/:username/send-email - send an email to the user
 ```
 
@@ -90,7 +91,7 @@ Response when `?view=activity`:
 ```
 
 Additional query params when `?view=activity`:
- 
+
  - start: For pagination. The key of the event to start after.
 
 ### GET /v1/users/:username/:archivename
@@ -126,7 +127,7 @@ Response body when `?view=activity`:
 ```
 
 Additional query params when `?view=activity`:
- 
+
  - start: For pagination. The key of the event to start after.
 
 Response body when `?view=popular`:
@@ -146,7 +147,7 @@ Response body when `?view=popular`:
 ```
 
 Additional query params when `?view=popular`:
- 
+
  - start: For pagination. Should be an offset.
 
 Response body when `?view=recent`:
@@ -166,7 +167,7 @@ Response body when `?view=recent`:
 ```
 
 Additional query params when `?view=recent`:
- 
+
  - start: For pagination. Should be a timestamp.
 
 ## Archive APIs
