@@ -97,6 +97,7 @@ module.exports = function (config) {
   // =
 
   app.get('/v1/admin/users', cloud.api.admin.listUsers)
+  app.post('/v1/admin/users', cloud.api.admin.createUser)
   app.get('/v1/admin/users/:id', cloud.api.admin.getUser)
   app.post('/v1/admin/users/:id', cloud.api.admin.updateUser)
   app.post('/v1/admin/users/:id/suspend', cloud.api.admin.suspendUser)
