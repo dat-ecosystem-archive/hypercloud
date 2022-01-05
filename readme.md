@@ -1,3 +1,9 @@
+[![deprecated](http://badges.github.io/stability-badges/dist/deprecated.svg)](github.com/beakerbrowser/hashbase) See [hashbase](github.com/beakerbrowser/hashbase) for similar functionality. 
+
+More info on active projects and modules at [dat-ecosystem.org](https://dat-ecosystem.org/) <img src="https://i.imgur.com/qZWlO1y.jpg" width="30" height="30" /> 
+
+---
+
 # Hypercloud ☁ 
 
 Hypercloud is a public peer service for [Dat](https://datproject.org) archives. It provides a HTTP-accessible interface for creating an account and uploading Dats.
