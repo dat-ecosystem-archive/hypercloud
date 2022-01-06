@@ -258,6 +258,45 @@ test('get user', async t => {
   t.is(res.body.username, testUser.username)
 })
 
+test('create new user via admin without email', async t => {
+  var res = await app.req.post({
+    uri: '/v1/admin/users',
+    json: {
+      username: 'bobita'
+    },
+    auth
+  })
+  t.is(res.statusCode, 201, '201 created user')
+
+  res = await app.req.get({
+    uri: '/v1/admin/users/bobita',
+    json: true,
+    auth
+  })
+  t.is(res.statusCode, 200, '200 got')
+  t.is(res.body.username, 'bobita', 'is created')
+})
+
+test('create new user via admin with email', async t => {
+  var res = await app.req.post({
+    uri: '/v1/admin/users',
+    json: {
+      username: 'bobitaToo',
+      email: 'bobita@example.com'
+    },
+    auth
+  })
+  t.is(res.statusCode, 201, '201 created user')
+
+  res = await app.req.get({
+    uri: '/v1/admin/users/bobitaToo',
+    json: true,
+    auth
+  })
+  t.is(res.statusCode, 200, '200 got')
+  t.is(res.body.username, 'bobitaToo', 'is created')
+})
+
 test('fully update carla', async t => {
   var res = await app.req.post({
     uri: '/v1/admin/users/carla',

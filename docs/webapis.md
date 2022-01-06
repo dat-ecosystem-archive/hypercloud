@@ -33,6 +33,7 @@ Admin APIs
 
 ```
 GET  /v1/admin/users - query users
+POST  /v1/admin/users - create new user
 GET  /v1/admin/users/:id - get user info & settings
 POST /v1/admin/users/:id - update user settings
 POST /v1/admin/users/:id/suspend - suspend a user account
@@ -315,6 +316,24 @@ Response body:
     updatedAt: Number, the timestamp of the last update
     createdAt: Number, the timestamp of creation time
   }, ...]
+}
+```
+
+Scope: `admin:users`
+
+### POST /v1/admin/users
+
+Create a new user as admin. Skips email verification.
+
+Request body:
+
+Username is the only required field.
+
+```
+{
+  email: String
+  username: String
+  password: String
 }
 ```
 
